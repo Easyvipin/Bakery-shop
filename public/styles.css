@@ -16754,6 +16754,10 @@ video {
   letter-spacing: 0.05em;
 }
 
+.banner {
+  height: 500px;
+}
+
 @media (min-width: 640px){
   .sm\:space-y-0 > :not(template) ~ :not(template){
     --space-y-reverse: 0;

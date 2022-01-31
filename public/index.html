@@ -9,42 +9,124 @@
   </head>
   <body class="text-gray-600 font-body">
     <div>
-      <div class="md:flex relative border-2 overflow-hidden h-64">
-        <img class="absolute w-full z-0" src="./image/cover.jpg" alt="" />
+      <div class="flex relative h-64 w-full object-cover overflow-hidden">
+        <img
+          class="absolute w-full h-full z-0 object-cover"
+          src="./image/cover.jpg"
+          alt=""
+        />
         <div
           class="absolute z-20 w-full h-full bg-black opacity-75 border-black border-2"
         ></div>
-        <div class="flex-col justify-center w-full z-30">
-          <h1 class="font-bold upppercase p-4 border-b border-gray-100">
-            <a
-              href="/"
-              class="text-green-400 sm:text-red-500 hover:text-gray-700"
-              >Bakery Name</a
-            >
+        <div class="flex flex-col items-center w-full z-30">
+          <h1 class="font-bold upppercase p-4 text-3xl md:text-4xl">
+            <a href="/" class="text-yellow-500 font-sans">Shivashish Bakery</a>
           </h1>
-          <div class="flex justify-center md:justify-end">
+          <p
+            class="text-orange-600 -mt-4 text-xl text-center md:text-3xl p-4 font-light"
+          >
+            Delecious Cakes for Every Occasion
+          </p>
+          <div class="flex justify-center mt-4">
             <a
               href="#"
-              class="btn border-red-300 border-2 hover:bg-red-500 hover:text-white transition ease-out duration-500"
+              class="btn text-white border-orange-500 border-2 hover:bg-yellow-500 hover:text-black transition ease-out duration-500"
               >Order</a
             >
             <a
               href="#"
-              class="ml-2 btn border-red-300 border-2 hover:bg-red-500 hover:text-white transition ease-out duration-500"
+              class="ml-2 btn text-white border-orange-500 border-2 hover:bg-yellow-500 hover:text-black transition ease-out duration-500"
               >Contact</a
             >
           </div>
         </div>
       </div>
       <!-- end nav -->
-      <main class="px-16 py-6 bg-gray-100 md:col-span-2">
+      <main class="px-16 py-6 bg-black md:col-span-2">
         <header>
-          <h2 class="text-brown-400 text-6xl font-semibold">Cakes</h2>
-          <h3 class="text-xl font-semibold">Snacks</h3>
+          <h2
+            class="text-brown-400 text-4xl sm:text-center md:text-left font-semibold text-orange-500"
+          >
+            Cakes
+          </h2>
+          <p
+            class="text-white sm:border-r-8 sm:text-xl md:text-2xl sm:border-orange-500 md:border-none"
+          >
+            Name a flavour we have it!
+          </p>
         </header>
         <div class="mt-8">
-          <h4 class="font-bold mt-12 pb-2 border-b border-gray-200">
+          <h4 class="font-bold mt-12 pb-2 border-b mb-6 text-yellow-500">
             Latest Cakes
+          </h4>
+          <div class="grid lg:grid-cols-3 gap-10">
+            <!-- cards go here -->
+            <div class="card hover:shadow-lg">
+              <img
+                class="w-full h-32 sm:h-48 border-b-8 border-orange-900 object-cover"
+                src="./image/vanilla.jpg"
+                alt=""
+              />
+              <div class="flex justify-between items-center">
+                <div class="m-4">
+                  <span class="font-bold text-black">Vanilla cake</span>
+                  <span class="block text-sm text-orange-900"
+                    >By john does</span
+                  >
+                </div>
+                <div
+                  class="mt-4 px-5 py-3 bg-black text-orange-500 rounded-t rounded-l rounded-r-none rounded-tr-none shadow-lg"
+                >
+                  <a href="/order">Order</a>
+                </div>
+              </div>
+              <div class="badge">
+                <span>₹ 200 </span>
+              </div>
+            </div>
+            <div class="card hover:shadow-lg">
+              <img
+                class="w-full h-32 sm:h-48 object-cover"
+                src="./image/pineapple.png"
+                alt="pineapple"
+              />
+              <div class="m-4">
+                <span class="font-bold">Vanilla cake</span>
+                <span class="block text-sm">By john does</span>
+              </div>
+              <div class="badge">
+                <span>₹ 200 </span>
+              </div>
+            </div>
+            <div class="card hover:shadow-lg">
+              <img
+                class="w-full h-32 sm:h-48 object-cover"
+                src="./image/Black.jpg"
+                alt="black"
+              />
+              <div class="m-4">
+                <span class="font-bold">Vanilla cake</span>
+                <span class="block text-sm">By john does</span>
+              </div>
+              <div class="badge">
+                <span>₹ 200 </span>
+              </div>
+            </div>
+          </div>
+          <header class="mt-10">
+            <h2
+              class="text-brown-400 text-4xl sm:text-center md:text-left font-semibold text-orange-500"
+            >
+              Snacks
+            </h2>
+            <p
+              class="text-white sm:border-r-8 sm:text-xl md:text-2xl sm:border-orange-500 md:border-none"
+            >
+              Spicy & Salty...
+            </p>
+          </header>
+          <h4 class="font-bold mt-12 pb-2 border-b mb-6 text-yellow-500">
+            Latest Snacks
           </h4>
           <div class="grid lg:grid-cols-3 gap-10">
             <!-- cards go here -->
@@ -91,9 +173,7 @@
               </div>
             </div>
           </div>
-          <h4 class="font-bold mt-12 pb-2 border-b border-gray-200">
-            Most Popular
-          </h4>
+
           <div class="mt-8">
             <!-- cards go here -->
 

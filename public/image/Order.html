@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://127.0.0.1:8080/order.html?snack=Namkeen -->
+<html lang="en"><grammarly-extension data-grammarly-shadow-root="true" style="position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT"></grammarly-extension><grammarly-extension data-grammarly-shadow-root="true" style="position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT"></grammarly-extension><grammarly-extension data-grammarly-shadow-root="true" style="position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT"></grammarly-extension><grammarly-extension data-grammarly-shadow-root="true" style="mix-blend-mode: darken; position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT"></grammarly-extension><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order</title>
+    <link rel="stylesheet" href="./Order_files/styles.css">
+  </head>
+  <body class="bg-black" data-new-gr-c-s-check-loaded="14.1047.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1047.0">
+    <div class="flex m-10 justify-center">
+      <div class="flex flex-col container items-center" id="order-container" style="display: none;">
+        <h1 class="text-yellow-500 md:text-6xl text-3xl">
+          Place Your Order... ⬇
+        </h1>
+        <span class="text-gray-300 text-xl p-2 border-b-2 border-gray-600">Fill your order details here</span>
+        <form class="mt-4 mb-4 md:border-2 md:p-10 p-2 w-auto rounded" onsubmit="submitOrderForm(event)">
+          <div class="text-white">
+            <h4 class="text-center border-green-400 border-2 p-2 mb-2" id="order-name">✅ Namkeen</h4>
+          </div>
+          <label for="Name" class="text-gray-300 text-xl">Name </label><br>
+          <input type="text" class="text-gray-900 md:p-2 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover:border-gray-700 border-b-4 rounded-sm" id="name" placeholder="Your name" required=""><br>
+          <label for="Number" class="text-gray-300 text-xl">Number </label><br>
+          <input type="text" class="text-gray-900 md:p-2 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover:border-gray-700 border-b-4 rounded-sm" id="Number" placeholder="+9109876543221" required=""><br>
+          <label for="Address" class="text-gray-300 text-xl">Address</label><br>
+          <textarea class="form-control text-gray-900 md:p-2 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover: hover:border-gray-700 border-b-4 rounded-sm" id="Address" rows="10" cols="30" required="" spellcheck="false">          </textarea><br>
+          <button class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded" type="submit">
+            Order 🍰
+          </button>
+        </form>
+      </div>
+      <div class="flex flex-col container items-center" id="confirm-container" style="display: flex;">
+        <form action="https://formsubmit.co/your@email.com" method="POST">
+          <input type="hidden" name="_template" value="box">
+          <input type="hidden" name="_subject" value="New Order!">
+          <input type="hidden" name="email" value="vipinchandratech@gmail.com" required="">
+          <textarea placeholder="Your Message" class="form-control p-2 outline-none bg-black text-green-400 border-2 border-green-400 rounded" name="message" rows="12" cols="40" required="" id="order-details" spellcheck="true"></textarea><br>
+          <button class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded" type="submit">
+            Confirm Order
+          </button>
+        </form>
+        <button class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded" type="button" onclick="onEdit(event)">
+          Edit Order
+        </button>
+      </div>
+    </div>
+    <script src="./Order_files/index.js.download"></script>
+  <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function() {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					head.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					head.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function(msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			console.log('Live reload enabled.');
+		})();
+	}
+	// ]]>
+</script>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration><grammarly-mirror data-grammarly-shadow-root="true" class="cGcvT"></grammarly-mirror></html>

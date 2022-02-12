@@ -31,15 +31,16 @@
           <label for="Name" class="text-gray-300 text-xl">Name </label><br />
           <input
             type="text"
-            class="text-gray-900 md:p-2 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover:border-gray-700 border-b-4 rounded-sm"
+            class="text-gray-900 p-1 mt-1 mb-1 md:text-lg text-lg outline-none hover:border-gray-700 border-b-4 rounded-sm"
             id="name"
             placeholder="Your name"
             required
           /><br />
-          <label for="Email" class="text-gray-300 text-xl">Name </label><br />
+          <label for="Email" class="text-gray-300 text-xl">Your Email</label
+          ><br />
           <input
             type="email"
-            class="text-gray-900 md:p-2 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover:border-gray-700 border-b-4 rounded-sm"
+            class="text-gray-900 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover:border-gray-700 border-b-4 rounded-sm"
             id="email"
             placeholder="email@gmail.com"
             required
@@ -48,7 +49,7 @@
           ><br />
           <input
             type="text"
-            class="text-gray-900 md:p-2 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover:border-gray-700 border-b-4 rounded-sm"
+            class="text-gray-900 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover:border-gray-700 border-b-4 rounded-sm"
             id="Number"
             placeholder="+9109876543221"
             required
@@ -58,7 +59,7 @@
           <textarea
             class="form-control text-gray-900 md:p-2 p-1 mt-1 mb-1 md:text-xl text-lg outline-none hover: hover:border-gray-700 border-b-4 rounded-sm"
             id="Address"
-            rows="10"
+            rows="2"
             cols="30"
             required
           >
@@ -71,16 +72,30 @@
             Order &#x1F370;
           </button>
         </form>
+        <a
+          href="/index.html"
+          class="text-xl text-black p-1 font-bold block self-stretch text-center rounded bg-orange-400 border-2 border-orange-700"
+        >
+          &#x2B05; Back</a
+        >
       </div>
       <div class="flex flex-col container items-center" id="confirm-container">
+        <h1 class="text-yellow-500 md:text-6xl text-3xl">
+          One step closer &#x2B07;
+        </h1>
+        <span class="text-gray-300 text-xl p-2 border-b-2 border-gray-600"
+          >Check your details and confirm</span
+        >
         <form
-          action="https://formsubmit.co/788b5e5124d39be448ae133b87a76dda"
+          class="mt-4"
+          action="https://formsubmit.co/vipinchandra555@gmail.com"
           method="POST"
         >
           <input type="hidden" name="_template" value="box" />
           <input type="hidden" name="_subject" value="New Order!" />
           <input type="hidden" name="_autoresponse" value="Order Accepted :)" />
           <input type="hidden" name="email" id="user-email" required />
+          <input type="hidden" name="_next" value="http://localhost:8080" />
           <textarea
             placeholder="Your Message"
             class="form-control p-2 outline-none bg-black text-green-400 border-2 border-green-400 rounded"
@@ -93,19 +108,19 @@
           </textarea
           ><br />
           <button
-            class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded"
+            class="bg-gray-100 p-2 block font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded inline-block"
             type="submit"
           >
-            Confirm Order
+            Confirm Order &#x2705;
+          </button>
+          <button
+            class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded self-start mt-2"
+            type="button"
+            onclick="onEdit(event)"
+          >
+            Edit Order
           </button>
         </form>
-        <button
-          class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded"
-          type="button"
-          onclick="onEdit(event)"
-        >
-          Edit Order
-        </button>
       </div>
     </div>
     <script src="./index.js"></script>

@@ -1,3 +1,70 @@
+import * as orderData from "./orders.json" assert { type: "json" };
+
+const cartButton = document.querySelectorAll(".cart-btn");
+const cartItems = document.querySelector("#cart-items");
+
+function addToCart(event) {
+  console.log("clicked");
+  const orderInf = {
+    name: event.target.value,
+    price: getOrderDetails(event.target.value),
+  };
+  if (event.target.dataset.type === "add") {
+    event.target.innerHTML = "Remove &#x2796;";
+    console.log(event.target);
+    event.target.dataset.type = "remove";
+    setCartItems(orderInf);
+  } else {
+    removeFromCart(orderInf.name);
+    event.target.dataset.type = "add";
+    event.target.innerHTML = "Add &#x1F6D2;";
+  }
+}
+
+/* assign the listener to btns */
+cartButton.forEach((item) => {
+  item.addEventListener("click", addToCart);
+});
+
+/* add to cart function */
+function getOrderDetails(orderName) {
+  return orderData.default[`${orderName}`].price;
+}
+
+function renderOrderUrl(orderValues) {
+  return `./order.html?cake=${orderValues}`;
+}
+
+const getCartItems = () => {
+  const ordersFromStorage = JSON.parse(localStorage.getItem("orders"));
+  return ordersFromStorage;
+};
+
+function setCartItems(order) {
+  const newOrder = order;
+  const existItems = getCartItems();
+  if (existItems) {
+    localStorage.setItem("orders", JSON.stringify([...existItems, newOrder]));
+    renderCartStats();
+  } else {
+    localStorage.setItem("orders", JSON.stringify([newOrder]));
+    renderCartStats();
+  }
+}
+
+function removeFromCart(name) {
+  const existOrder = getCartItems();
+  const filterOrders = existOrder.filter((item) => item.name !== name);
+  localStorage.setItem("orders", JSON.stringify(filterOrders));
+  renderCartStats();
+}
+
+function renderCartStats() {
+  const items = getCartItems();
+  cartItems.innerHTML = items.length;
+}
+/* setCartItems(orderInformation); */
+
 if (window.location.pathname === "/order.html") {
   const orderField = document.getElementById("order-name");
   const orderContainer = document.getElementById("order-container");

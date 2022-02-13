@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       fontsFamily: {
-        body: ["Nunito"],
+        body: ["Nunito", "Monoton"],
+        monoton: ["Monoton"],
       },
     },
   },

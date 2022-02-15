@@ -2,9 +2,10 @@ import * as orderData from "./orders.json" assert { type: "json" };
 
 const cartButton = document.querySelectorAll(".cart-btn");
 const cartItems = document.querySelector("#cart-items");
+let totalPrice = 0;
+let deliveryCharges = 100;
 
 function addToCart(event) {
-  console.log("clicked");
   const orderInf = {
     name: event.target.value,
     price: getOrderDetails(event.target.value),
@@ -26,7 +27,7 @@ cartButton.forEach((item) => {
   item.addEventListener("click", addToCart);
 });
 
-/* add to cart function */
+/* get order details from json data */
 function getOrderDetails(orderName) {
   return orderData.default[`${orderName}`].price;
 }
@@ -52,6 +53,7 @@ function setCartItems(order) {
   }
 }
 
+/* for removing cart from items */
 function removeFromCart(name) {
   const existOrder = getCartItems();
   const filterOrders = existOrder.filter((item) => item.name !== name);
@@ -59,6 +61,9 @@ function removeFromCart(name) {
   renderCartStats();
 }
 
+renderCartStats();
+
+/* render cart status when cart action happens */
 function renderCartStats() {
   const items = getCartItems();
   cartItems.innerHTML = items.length;
@@ -71,9 +76,7 @@ if (window.location.pathname === "/order.html") {
   const confirmContainer = document.getElementById("confirm-container");
   const orderDetails = document.getElementById("order-details");
   const userEmail = document.getElementById("user-email");
-  const orderParams = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams, prop) => searchParams.get(prop),
-  });
+
   confirmContainer.style.display = "none";
   orderField.innerHTML = `&#x2705; ${orderParams.cake || orderParams.snack}`;
 
@@ -99,3 +102,18 @@ if (window.location.pathname === "/order.html") {
     confirmContainer.style.display = "none";
   }
 }
+
+/* Billing */
+
+function renderBasedOnOrder() {
+  const orderParams = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  if (orderParams.cake) {
+    renderOneOrderBill();
+  } else {
+    renderCartOrdersBill();
+  }
+}
+
+function renderCartOrdersBill() {}

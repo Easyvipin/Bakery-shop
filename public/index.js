@@ -1,9 +1,23 @@
-import * as orderData from "./orders.json" assert { type: "json" };
+let totalPrice = 0;
+let deliveryCharges = 100;
+
+const orderData = {
+  vanilla: {
+    name: "vanilla",
+    price: "300",
+  },
+  pineapple: {
+    name: "pineapple",
+    price: "400",
+  },
+  black: {
+    name: "black forest",
+    price: "400",
+  },
+};
 
 const cartButton = document.querySelectorAll(".cart-btn");
 const cartItems = document.querySelector("#cart-items");
-let totalPrice = 0;
-let deliveryCharges = 100;
 
 function addToCart(event) {
   const orderInf = {
@@ -29,7 +43,7 @@ cartButton.forEach((item) => {
 
 /* get order details from json data */
 function getOrderDetails(orderName) {
-  return orderData.default[`${orderName}`].price;
+  return orderData[`${orderName}`].price;
 }
 
 function renderOrderUrl(orderValues) {
@@ -61,13 +75,15 @@ function removeFromCart(name) {
   renderCartStats();
 }
 
-renderCartStats();
-
 /* render cart status when cart action happens */
 function renderCartStats() {
   const items = getCartItems();
   cartItems.innerHTML = items.length;
 }
+if (window.location.pathname !== "/order.html") {
+  renderCartStats();
+}
+
 /* setCartItems(orderInformation); */
 
 if (window.location.pathname === "/order.html") {
@@ -76,10 +92,13 @@ if (window.location.pathname === "/order.html") {
   const confirmContainer = document.getElementById("confirm-container");
   const orderDetails = document.getElementById("order-details");
   const userEmail = document.getElementById("user-email");
+  const itemsContainer = document.getElementById("items");
+  const priceContainer = document.getElementById("price");
+  const crossContainer = document.getElementById("cross");
 
   confirmContainer.style.display = "none";
-  orderField.innerHTML = `&#x2705; ${orderParams.cake || orderParams.snack}`;
-
+  /*  orderField.innerHTML = `&#x2705; ${orderParams.cake || orderParams.snack}`;
+   */
   let name, phoneNumber, address, email, ConfirmOrderString;
 
   function submitOrderForm(event) {
@@ -101,19 +120,46 @@ if (window.location.pathname === "/order.html") {
     orderContainer.style.display = "flex";
     confirmContainer.style.display = "none";
   }
-}
 
-/* Billing */
+  /* Billing */
 
-function renderBasedOnOrder() {
-  const orderParams = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams, prop) => searchParams.get(prop),
-  });
-  if (orderParams.cake) {
-    renderOneOrderBill();
-  } else {
-    renderCartOrdersBill();
+  function renderBasedOnOrder() {
+    const orderParams = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+    });
+    if (orderParams.cake) {
+      const singleItem = {
+        name: orderParams.cake,
+        price: getOrderDetails(orderParams.cake),
+      };
+      renderCartOrdersBill([singleItem]);
+    } else {
+      const values = getCartItems();
+      renderCartOrdersBill(values);
+    }
+  }
+
+  function renderCartOrdersBill(values) {
+    console.log(values);
+    let totalPrice = 0;
+    values.forEach((item) => {
+      eachItem(item.name, item.price);
+      totalPrice += Number(item.price);
+    });
+    let totalPriceTemplate = `<li class="border-t-2 mt-2 border-black border-dashed">
+    ${totalPrice} &#8377;
+  </li>`;
+    let totalTemplate = `<li class="border-t-2 border-black mt-2 border-dashed">Total</li>`;
+    itemsContainer.innerHTML += totalTemplate;
+    priceContainer.innerHTML += totalPriceTemplate;
+  }
+  renderBasedOnOrder();
+
+  function eachItem(bakeryItem, itemPrice) {
+    console.log("called");
+    let itemTemplate = `<li>${bakeryItem}</li>`;
+    let priceTemplate = `<li>${itemPrice} &#8377;</li>`;
+    itemsContainer.innerHTML += itemTemplate;
+    priceContainer.innerHTML += priceTemplate;
   }
 }
-
-function renderCartOrdersBill() {}

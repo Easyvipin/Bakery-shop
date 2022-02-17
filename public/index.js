@@ -72,11 +72,14 @@ function removeFromCart(name) {
   const existOrder = getCartItems();
   const filterOrders = existOrder.filter((item) => item.name !== name);
   localStorage.setItem("orders", JSON.stringify(filterOrders));
-  renderCartStats();
+  if (cartItems) {
+    renderCartStats();
+  }
 }
 
 /* render cart status when cart action happens */
 function renderCartStats() {
+  console.log("stats");
   const items = getCartItems();
   cartItems.innerHTML = items.length;
 }
@@ -95,6 +98,7 @@ if (window.location.pathname === "/order.html") {
   const itemsContainer = document.getElementById("items");
   const priceContainer = document.getElementById("price");
   const crossContainer = document.getElementById("cross");
+  let crossButton;
 
   confirmContainer.style.display = "none";
   /*  orderField.innerHTML = `&#x2705; ${orderParams.cake || orderParams.snack}`;
@@ -124,6 +128,10 @@ if (window.location.pathname === "/order.html") {
   /* Billing */
 
   function renderBasedOnOrder() {
+    console.log("called order");
+    itemsContainer.innerHTML = "";
+    priceContainer.innerHTML = "";
+    crossContainer.innerHTML = "";
     const orderParams = new Proxy(new URLSearchParams(window.location.search), {
       get: (searchParams, prop) => searchParams.get(prop),
     });
@@ -139,27 +147,41 @@ if (window.location.pathname === "/order.html") {
     }
   }
 
+  function assignCrossButton() {
+    crossButton = document.querySelectorAll(".cross-btn");
+    crossButton.forEach((item) => {
+      item.addEventListener("click", (event) => {
+        removeFromCart(event.target.value);
+        renderBasedOnOrder();
+      });
+    });
+  }
+
   function renderCartOrdersBill(values) {
-    console.log(values);
     let totalPrice = 0;
     values.forEach((item) => {
       eachItem(item.name, item.price);
       totalPrice += Number(item.price);
     });
-    let totalPriceTemplate = `<li class="border-t-2 mt-2 border-black border-dashed">
+    if (totalPrice > 0) {
+      let totalPriceTemplate = `<li class="border-t-2 mt-2 border-black border-dashed">
     ${totalPrice} &#8377;
   </li>`;
-    let totalTemplate = `<li class="border-t-2 border-black mt-2 border-dashed">Total</li>`;
-    itemsContainer.innerHTML += totalTemplate;
-    priceContainer.innerHTML += totalPriceTemplate;
+      let totalTemplate = `<li class="border-t-2 border-black mt-2 border-dashed">Total</li>`;
+      itemsContainer.innerHTML += totalTemplate;
+      priceContainer.innerHTML += totalPriceTemplate;
+    } else {
+    }
+    assignCrossButton();
   }
   renderBasedOnOrder();
 
   function eachItem(bakeryItem, itemPrice) {
-    console.log("called");
     let itemTemplate = `<li>${bakeryItem}</li>`;
     let priceTemplate = `<li>${itemPrice} &#8377;</li>`;
+    let crossTemplate = ` <li><button class="cross-btn" value="${bakeryItem}">X</button></li>`;
     itemsContainer.innerHTML += itemTemplate;
     priceContainer.innerHTML += priceTemplate;
+    crossContainer.innerHTML += crossTemplate;
   }
 }

@@ -11,8 +11,16 @@ const orderData = {
     price: "400",
   },
   black: {
-    name: "black forest",
+    name: "black",
     price: "400",
+  },
+  baloon: {
+    name: "baloon",
+    price: "70",
+  },
+  cap: {
+    name: "cap",
+    price: "40",
   },
 };
 
@@ -29,6 +37,7 @@ function addToCart(event) {
     console.log(event.target);
     event.target.dataset.type = "remove";
     setCartItems(orderInf);
+    renderBasedOnOrder();
   } else {
     removeFromCart(orderInf.name);
     event.target.dataset.type = "add";
@@ -36,6 +45,29 @@ function addToCart(event) {
   }
 }
 
+const getCartItems = () => {
+  console.log("getting data from cart");
+  const ordersFromStorage = JSON.parse(localStorage.getItem("orders"));
+  return ordersFromStorage;
+};
+
+const alreadyInCart = getCartItems();
+
+function checkItemInCart(value, cartItems) {
+  let check = cartItems.some((item) => item.name === value);
+  return check;
+}
+
+cartButton.forEach((item) => {
+  setTypeOfButtonByDefault(item, alreadyInCart);
+});
+
+function setTypeOfButtonByDefault(btn, cartValues) {
+  if (checkItemInCart(btn.value, cartValues)) {
+    btn.dataset.type = "remove";
+    btn.innerHTML = "Remove &#x2796;";
+  }
+}
 /* assign the listener to btns */
 cartButton.forEach((item) => {
   item.addEventListener("click", addToCart);
@@ -49,11 +81,6 @@ function getOrderDetails(orderName) {
 function renderOrderUrl(orderValues) {
   return `./order.html?cake=${orderValues}`;
 }
-
-const getCartItems = () => {
-  const ordersFromStorage = JSON.parse(localStorage.getItem("orders"));
-  return ordersFromStorage;
-};
 
 function setCartItems(order) {
   const newOrder = order;
@@ -81,7 +108,9 @@ function removeFromCart(name) {
 function renderCartStats() {
   console.log("stats");
   const items = getCartItems();
-  cartItems.innerHTML = items.length;
+  if (cartItems) {
+    cartItems.innerHTML = items.length;
+  }
 }
 if (window.location.pathname !== "/order.html") {
   renderCartStats();
@@ -128,7 +157,6 @@ if (window.location.pathname === "/order.html") {
   /* Billing */
 
   function renderBasedOnOrder() {
-    console.log("called order");
     itemsContainer.innerHTML = "";
     priceContainer.innerHTML = "";
     crossContainer.innerHTML = "";
@@ -152,21 +180,30 @@ if (window.location.pathname === "/order.html") {
     crossButton.forEach((item) => {
       item.addEventListener("click", (event) => {
         removeFromCart(event.target.value);
-        renderBasedOnOrder();
+        location.reload();
       });
     });
   }
 
   function renderCartOrdersBill(values) {
     let totalPrice = 0;
+    let totalPriceTemplate;
     values.forEach((item) => {
       eachItem(item.name, item.price);
       totalPrice += Number(item.price);
     });
     if (totalPrice > 0) {
-      let totalPriceTemplate = `<li class="border-t-2 mt-2 border-black border-dashed">
+      if (totalPrice < 500) {
+        let initialTotalPrice = totalPrice;
+        totalPrice += 40;
+        totalPriceTemplate = `<li class="border-t-2 mt-2 border-black border-dashed">
+    ${initialTotalPrice} &#8377 + 40 &#8377 (Delivery charges) = ${totalPrice}  &#8377;
+  </li>`;
+      } else {
+        totalPriceTemplate = `<li class="border-t-2 mt-2 border-black border-dashed">
     ${totalPrice} &#8377;
   </li>`;
+      }
       let totalTemplate = `<li class="border-t-2 border-black mt-2 border-dashed">Total</li>`;
       itemsContainer.innerHTML += totalTemplate;
       priceContainer.innerHTML += totalPriceTemplate;

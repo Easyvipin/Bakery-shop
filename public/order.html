@@ -9,7 +9,70 @@
   </head>
   <body class="bg-black">
     <div class="flex m-10 justify-center">
-      <div class="flex flex-col container items-center" id="order-container">
+      <div
+        class="flex flex-col container items-center border-2"
+        id="bill-container"
+      >
+        <div class="header">
+          <h1 class="text-yellow-500 md:text-6xl text-3xl">
+            Your Bill &#x1F9FB;
+          </h1>
+        </div>
+        <div class="bill mt-6 flex justify-evenly p-3 bg-yellow-600 text-black">
+          <ul class="bill-contents px-6" id="items"></ul>
+          <span class="border-r-2 border-black border-dotted"></span>
+          <ul class="bill-price px-6" id="price"></ul>
+          <ul class="bill-price px-6" id="cross">
+            <li><button class="" data-type="">X</button></li>
+            <li>X</li>
+          </ul>
+        </div>
+        <h3 class="text-white mt-4 border-b-2 border-dashed p-2">
+          Complete your party at low price
+        </h3>
+        <div
+          class="other-items mt-2 border-2 flex flex-wrap justify-around text-white"
+        >
+          <div class="relative m-2">
+            <img
+              class="h-24 w-full object-cover opacity-50"
+              src="./image/baloon1.jpg"
+              class=""
+            /><span
+              class="absolute bottom-0 left-0 p-1 text-sm bg-opacity-75 bg-black w-full"
+              >Baloon 70 &#8377;</span
+            >
+            <button
+              class="mt-1 px-2 py-1 text-sm bg-black bg-opacity-75 font-bold text-white border-2 border-white rounded shadow-lg absolute top-0 right-0 mr-1 cart-btn"
+              value="baloon"
+              data-type="add"
+            >
+              Add &#x2795;
+            </button>
+          </div>
+          <div class="relative m-2">
+            <img
+              class="h-24 w-full object-cover opacity-50"
+              src="./image/baloon1.jpg"
+              class=""
+            /><span
+              class="absolute bottom-0 left-0 p-1 text-sm bg-opacity-75 bg-black w-full"
+              >Cap 70 &#8377;</span
+            >
+            <button
+              class="mt-1 px-2 py-1 text-sm bg-black bg-opacity-75 font-bold text-white border-2 border-white rounded shadow-lg absolute top-0 right-0 mr-1 cart-btn"
+              value="cap"
+              data-type="add"
+            >
+              Add &#x2795;
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex flex-col container items-center hidden"
+        id="order-container"
+      >
         <h1 class="text-yellow-500 md:text-6xl text-3xl">
           Place Your Order... &#x2B07;
         </h1>
@@ -79,7 +142,10 @@
           &#x2B05; Back</a
         >
       </div>
-      <div class="flex flex-col container items-center" id="confirm-container">
+      <div
+        class="flex flex-col container items-center hidden"
+        id="confirm-container"
+      >
         <h1 class="text-yellow-500 md:text-6xl text-3xl">
           One step closer &#x2B07;
         </h1>

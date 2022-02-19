@@ -1,28 +1,105 @@
 let totalPrice = 0;
 let deliveryCharges = 100;
-
+let cakeContainer = document.querySelector(".cake-container");
 const orderData = {
-  vanilla: {
-    name: "vanilla",
-    price: "300",
+  stawberry: {
+    name: "stawberry",
+    price: "180",
+  },
+  butterscotch: {
+    name: "butterscotch",
+    price: "200",
+  },
+  dorimon: {
+    name: "dorimon",
+    price: "200",
+  },
+  redvalvet: {
+    name: "redvalvet",
+    price: "250",
   },
   pineapple: {
     name: "pineapple",
-    price: "400",
+    price: "180",
   },
-  black: {
-    name: "black",
-    price: "400",
+  blackforest: {
+    name: "blackforest",
+    price: "200",
   },
-  baloon: {
-    name: "baloon",
-    price: "70",
+  chocolate: {
+    name: "chocolate",
+    price: "200",
+  },
+  vanilla: {
+    name: "vanilla",
+    price: "200",
   },
   cap: {
     name: "cap",
+    price: "50",
+  },
+  designcap: {
+    name: "designcap",
+    price: "50",
+  },
+  musicalknife: {
+    name: "musicalknife",
+    price: "50",
+  },
+  metallicbaloons: {
+    name: "metallicbaloons",
+    price: "120",
+    pcs: "50",
+  },
+  heartbaloons: {
+    name: "heartbaloons",
     price: "40",
+    pcs: "20",
+  },
+  knifes: {
+    name: "knifes",
+    price: "10",
   },
 };
+
+const renderAllCakes = () => {
+  Object.keys(orderData).forEach((item, index) => {
+    if (index <= 7 && cakeContainer) {
+      cakeContainer.innerHTML += `
+    <div class="card hover:shadow-lg">
+    <img
+      class="w-full h-32 sm:h-48 border-b-8 border-orange-900 object-cover"
+      src="./image/${orderData[item].name}.jpg"
+      alt=""
+    />
+    <div class="flex justify-between items-center">
+      <div class="m-4">
+        <span class="font-bold text-black">${orderData[item].name}</span>
+        <span class="block text-sm text-orange-900">1 Pond</span>
+      </div>
+
+      <div
+        class="mt-4 px-5 py-3 bg-black text-orange-500 rounded-t rounded-l rounded-r-none rounded-tr-none shadow-lg"
+      >
+        <a href="./order.html?cake=${orderData[item].name}">Order</a>
+      </div>
+    </div>
+    <div class="badge">
+      <span>₹ ${orderData[item].price} </span>
+    </div>
+    <button
+      class="mt-4 px-2 py-1 bg-black bg-opacity-75 font-bold text-white border-2 border-white rounded shadow-lg absolute top-0 right-0 mr-4 cart-btn"
+      value="${orderData[item].name}"
+      data-type="add"
+    >
+      Add &#x1F6D2;
+    </button>
+  </div>
+    `;
+    }
+  });
+};
+renderAllCakes();
 
 const cartButton = document.querySelectorAll(".cart-btn");
 const cartItems = document.querySelector("#cart-items");
@@ -52,9 +129,8 @@ const getCartItems = () => {
 };
 
 const alreadyInCart = getCartItems();
-
 function checkItemInCart(value, cartItems) {
-  let check = cartItems.some((item) => item.name === value);
+  let check = cartItems?.some((item) => item.name === value);
   return check;
 }
 
@@ -102,6 +178,7 @@ function removeFromCart(name) {
   if (cartItems) {
     renderCartStats();
   }
+  location.reload();
 }
 
 /* render cart status when cart action happens */
@@ -109,7 +186,7 @@ function renderCartStats() {
   console.log("stats");
   const items = getCartItems();
   if (cartItems) {
-    cartItems.innerHTML = items.length;
+    cartItems.innerHTML = items?.length || 0;
   }
 }
 if (window.location.pathname !== "/order.html") {
@@ -121,13 +198,26 @@ if (window.location.pathname !== "/order.html") {
 if (window.location.pathname === "/order.html") {
   const orderField = document.getElementById("order-name");
   const orderContainer = document.getElementById("order-container");
+  const billContainer = document.getElementById("bill-container");
   const confirmContainer = document.getElementById("confirm-container");
   const orderDetails = document.getElementById("order-details");
   const userEmail = document.getElementById("user-email");
   const itemsContainer = document.getElementById("items");
   const priceContainer = document.getElementById("price");
   const crossContainer = document.getElementById("cross");
+  const proceedBtn = document.querySelector(".proceed");
+  const partyNeed = document.querySelector(".party-need");
   let crossButton;
+
+  orderContainer.style.display = "none";
+  proceedBtn.addEventListener("click", () => {
+    billContainer.style.display = "none";
+    orderContainer.style.display = "flex";
+  });
+
+  const orderParams = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
 
   confirmContainer.style.display = "none";
   /*  orderField.innerHTML = `&#x2705; ${orderParams.cake || orderParams.snack}`;
@@ -142,8 +232,12 @@ if (window.location.pathname === "/order.html") {
     email = event.target.elements.email.value;
     orderContainer.style.display = "none";
     confirmContainer.style.display = "flex";
+    const listOutItems = getCartItems();
+    const orderTemplate = listOutItems?.map(
+      (item) => `${item.name} --> ${item.price} \n`
+    );
     ConfirmOrderString = `Ordered: ${
-      orderParams.cake || orderParams.snack
+      orderParams.cake || orderTemplate.join(" ")
     } \n #####DETAILS###### \n Name : ${name} \n Call : ${phoneNumber} \n Address: ${address}`;
     orderDetails.value = ConfirmOrderString;
     userEmail.value = email;
@@ -160,24 +254,21 @@ if (window.location.pathname === "/order.html") {
     itemsContainer.innerHTML = "";
     priceContainer.innerHTML = "";
     crossContainer.innerHTML = "";
-    const orderParams = new Proxy(new URLSearchParams(window.location.search), {
-      get: (searchParams, prop) => searchParams.get(prop),
-    });
+    const values = getCartItems();
     if (orderParams.cake) {
       const singleItem = {
         name: orderParams.cake,
         price: getOrderDetails(orderParams.cake),
       };
-      renderCartOrdersBill([singleItem]);
+      renderCartOrdersBill([singleItem, ...values]);
     } else {
-      const values = getCartItems();
       renderCartOrdersBill(values);
     }
   }
 
   function assignCrossButton() {
     crossButton = document.querySelectorAll(".cross-btn");
-    crossButton.forEach((item) => {
+    crossButton?.forEach((item) => {
       item.addEventListener("click", (event) => {
         removeFromCart(event.target.value);
         location.reload();
@@ -186,9 +277,10 @@ if (window.location.pathname === "/order.html") {
   }
 
   function renderCartOrdersBill(values) {
+    console.log(values);
     let totalPrice = 0;
     let totalPriceTemplate;
-    values.forEach((item) => {
+    values?.forEach((item) => {
       eachItem(item.name, item.price);
       totalPrice += Number(item.price);
     });
@@ -196,15 +288,15 @@ if (window.location.pathname === "/order.html") {
       if (totalPrice < 500) {
         let initialTotalPrice = totalPrice;
         totalPrice += 40;
-        totalPriceTemplate = `<li class="border-t-2 mt-2 border-black border-dashed">
+        totalPriceTemplate = `<li class="border-t-2 mt-2 md:text-sm text-xs border-black border-dashed">
     ${initialTotalPrice} &#8377 + 40 &#8377 (Delivery charges) = ${totalPrice}  &#8377;
   </li>`;
       } else {
-        totalPriceTemplate = `<li class="border-t-2 mt-2 border-black border-dashed">
-    ${totalPrice} &#8377;
+        totalPriceTemplate = `<li class="border-t-2 mt-2 md:text-sm text-xs border-black border-dashed">
+    ${totalPrice} &#8377 + 0 &#8377 (Delivery charges) = ${totalPrice} &#8377;
   </li>`;
       }
-      let totalTemplate = `<li class="border-t-2 border-black mt-2 border-dashed">Total</li>`;
+      let totalTemplate = `<li class="border-t-2 md:text-sm text-xs border-black mt-2 border-dashed">Total</li>`;
       itemsContainer.innerHTML += totalTemplate;
       priceContainer.innerHTML += totalPriceTemplate;
     } else {
@@ -214,11 +306,26 @@ if (window.location.pathname === "/order.html") {
   renderBasedOnOrder();
 
   function eachItem(bakeryItem, itemPrice) {
-    let itemTemplate = `<li>${bakeryItem}</li>`;
-    let priceTemplate = `<li>${itemPrice} &#8377;</li>`;
-    let crossTemplate = ` <li><button class="cross-btn" value="${bakeryItem}">X</button></li>`;
+    let itemTemplate = `<li class="mt-2 md:text-sm text-xs">${bakeryItem}</li>`;
+    let priceTemplate = `<li class="mt-2 md:text-sm text-xs">${itemPrice} &#8377;</li>`;
+    let crossTemplate = ` <li class="mt-2 md:text-sm text-xs"><button class="cross-btn font-bold  px-4 border-black rounded hover:bg-black hover:text-white" value="${bakeryItem}">X</button></li>`;
     itemsContainer.innerHTML += itemTemplate;
     priceContainer.innerHTML += priceTemplate;
     crossContainer.innerHTML += crossTemplate;
+  }
+  if (alreadyInCart.length === 0 && !orderParams.cake) {
+    console.log("called");
+    const emptyContainer = document.querySelector(".billing-body");
+    if (emptyContainer) {
+      emptyContainer.innerHTML = ` <div class="empty-cart flex flex-col items-center">
+      <img src="./image/empty-cart.png" class="w-1/2" alt="" />
+      <a
+        class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded"
+        href="./index.html"
+      >
+        Shop Now &#x1F9FA;
+      </a>
+    </div>`;
+    }
   }
 }

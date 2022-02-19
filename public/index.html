@@ -10,7 +10,7 @@
   </head>
   <body class="text-gray-600 font-body">
     <div>
-      <div class="flex w-full object-cover overflow-hidden fixed z-10">
+      <div class="flex w-full h-64 object-cover overflow-hidden fixed z-10">
         <img
           class="absolute w-full h-full z-0 object-cover"
           src="./image/cover.jpg"
@@ -20,15 +20,17 @@
           class="absolute z-20 w-full h-full bg-black opacity-75 border-black border-2"
         ></div>
         <div
-          class="flex flex-col md:flex-row items-center justify-evenly border-2 w-full z-30"
+          class="flex flex-col md:flex-row items-center justify-evenly w-full z-30"
         >
-          <h1 class="upppercase p-4 md:font-big font-mobile">
-            <a href="/" class="text-yellow-500 font-monoton">Bakery</a>
-          </h1>
+          <img
+            class="md:h-40 md:w-40 h-32 w-32"
+            src="./image/logo2.jpg"
+            alt=""
+          />
           <p
-            class="text-orange-400 -mt-4 font-bold italic text text-opacity-75 text-xl text-center md:text-3xl p-4"
+            class="text-orange-400 -mt-4 font-bold text text-opacity-75 text-xl text-center md:text-3xl p-4"
           >
-            Delecious Cakes for Every Occasion...
+            Delecious Deliciousness... &#x1F92A;
           </p>
           <div class="cart-system">
             <a
@@ -36,8 +38,9 @@
               class="ml-2 btn mr-1 text-white border-orange-500 border-2 hover:bg-yellow-500 hover:text-black transition ease-out duration-500"
               >Contact For Parties</a
             >
-            <button
+            <a
               class="bg-orange-900 text-white font-bold px-2 py-1 rounded-full relative"
+              href="/order.html"
             >
               Cart &#x1F6CD;
               <span
@@ -45,12 +48,12 @@
                 id="cart-items"
                 >0</span
               >
-            </button>
+            </a>
           </div>
         </div>
       </div>
       <!-- end nav -->
-      <main class="px-16 py-6 bg-black md:col-span-2 z-0">
+      <main class="px-10 md:px-64 py-64 bg-black md:col-span-2 z-0">
         <header>
           <h2
             class="text-brown-400 text-4xl sm:text-center md:text-left font-semibold text-orange-500"
@@ -67,69 +70,8 @@
           <h4 class="font-bold mt-12 pb-2 border-b mb-6 text-yellow-500">
             Latest Cakes
           </h4>
-          <div class="grid lg:grid-cols-3 gap-10">
+          <div class="grid lg:grid-cols-3 gap-10 cake-container">
             <!-- cards go here -->
-            <div class="card hover:shadow-lg">
-              <img
-                class="w-full h-32 sm:h-48 border-b-8 border-orange-900 object-cover"
-                src="./image/vanilla.jpg"
-                alt=""
-              />
-              <div class="flex justify-between items-center">
-                <div class="m-4">
-                  <span class="font-bold text-black">Vanilla cake</span>
-                  <span class="block text-sm text-orange-900"
-                    >By john does</span
-                  >
-                </div>
-
-                <div
-                  class="mt-4 px-5 py-3 bg-black text-orange-500 rounded-t rounded-l rounded-r-none rounded-tr-none shadow-lg"
-                >
-                  <a href="./order.html?cake=vanilla">Order</a>
-                </div>
-              </div>
-              <div class="badge">
-                <span>₹ 200 </span>
-              </div>
-              <button
-                class="mt-4 px-2 py-1 bg-black bg-opacity-75 font-bold text-white border-2 border-white rounded shadow-lg absolute top-0 right-0 mr-4 cart-btn"
-                value="vanilla"
-                data-type="add"
-              >
-                Add &#x1F6D2;
-              </button>
-            </div>
-            <div class="card hover:shadow-lg">
-              <img
-                class="w-full h-32 sm:h-48 border-b-8 border-orange-900 object-cover"
-                src="./image/pineapple.png"
-                alt=""
-              />
-              <div class="flex justify-between items-center">
-                <div class="m-4">
-                  <span class="font-bold text-black">Pineapple cake</span>
-                  <span class="block text-sm text-orange-900"
-                    >By john does</span
-                  >
-                </div>
-                <div
-                  class="mt-4 px-5 py-3 bg-black text-orange-500 rounded-t rounded-l rounded-r-none rounded-tr-none shadow-lg"
-                >
-                  <a href="./order.html?cake=Pineapple">Order</a>
-                </div>
-              </div>
-              <div class="badge">
-                <span>₹ 200 </span>
-              </div>
-              <button
-                class="mt-4 px-2 py-1 bg-black bg-opacity-75 font-bold text-white border-2 border-white rounded shadow-lg absolute top-0 right-0 mr-4 cart-btn"
-                value="pineapple"
-                data-type="add"
-              >
-                Add &#x1F6D2;
-              </button>
-            </div>
           </div>
           <div class="mt-8">
             <div class="flex justify-center">

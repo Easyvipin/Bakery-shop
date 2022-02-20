@@ -111,7 +111,6 @@ function addToCart(event) {
   };
   if (event.target.dataset.type === "add") {
     event.target.innerHTML = "Remove &#x2796;";
-    console.log(event.target);
     event.target.dataset.type = "remove";
     setCartItems(orderInf);
     renderBasedOnOrder();
@@ -123,7 +122,6 @@ function addToCart(event) {
 }
 
 const getCartItems = () => {
-  console.log("getting data from cart");
   const ordersFromStorage = JSON.parse(localStorage.getItem("orders"));
   return ordersFromStorage;
 };
@@ -183,7 +181,6 @@ function removeFromCart(name) {
 
 /* render cart status when cart action happens */
 function renderCartStats() {
-  console.log("stats");
   const items = getCartItems();
   if (cartItems) {
     cartItems.innerHTML = items?.length || 0;
@@ -277,7 +274,6 @@ if (window.location.pathname === "/order.html") {
   }
 
   function renderCartOrdersBill(values) {
-    console.log(values);
     let totalPrice = 0;
     let totalPriceTemplate;
     values?.forEach((item) => {
@@ -314,7 +310,6 @@ if (window.location.pathname === "/order.html") {
     crossContainer.innerHTML += crossTemplate;
   }
   if (alreadyInCart.length === 0 && !orderParams.cake) {
-    console.log("called");
     const emptyContainer = document.querySelector(".billing-body");
     if (emptyContainer) {
       emptyContainer.innerHTML = ` <div class="empty-cart flex flex-col items-center">

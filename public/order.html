@@ -221,7 +221,7 @@
           >Check your details and confirm</span
         >
         <form
-          class="mt-4"
+          class="mt-4 flex flex-col items-center"
           action="https://formsubmit.co/mahendrapratap922@gmail.com"
           method="POST"
         >
@@ -239,7 +239,7 @@
             class="form-control p-2 outline-none bg-black text-green-400 border-2 border-green-400 rounded"
             name="message"
             rows="12"
-            cols="40"
+            cols="20"
             required
             id="order-details"
           >
@@ -251,13 +251,12 @@
           >
             Confirm Order &#x2705;
           </button>
-          <button
-            class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded self-start mt-2"
-            type="button"
-            onclick="onEdit(event)"
+          <a
+            class="bg-gray-100 p-2 font-mono md:text-xl text-large font-bold outline-none hover:bg-yellow-300 transform transition-transform ease-in duration-150 hover:scale-110 rounded mt-2 block"
+            href="/index.html"
           >
             Edit Order
-          </button>
+          </a>
         </form>
       </div>
     </div>
